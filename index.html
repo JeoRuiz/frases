@@ -32,6 +32,7 @@
             padding-left: 25px; 
             border-left: 3px solid #2b2b2b; 
             margin-bottom: 15px;
+            min-height: 80px; /* Evita que el botón brinque mucho si la frase es corta */
         }
         #autor-dia {
             font-size: 0.9rem;
@@ -39,6 +40,26 @@
             padding-left: 28px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        /* Botón estilo industrial */
+        .btn-rotar {
+            margin-left: 28px;
+            padding: 8px 16px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: #2b2b2b;
+            background-color: transparent;
+            border: 1px solid #2b2b2b;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .btn-rotar:hover {
+            background-color: #2b2b2b;
+            color: #f4f4f4;
         }
 
         /* Separador */
@@ -82,6 +103,7 @@
         <div class="destacado">
             <div id="frase-dia">Cargando sabiduría...</div>
             <div id="autor-dia"></div>
+            <button id="btn-siguiente" class="btn-rotar">Siguiente extracto →</button>
         </div>
         
         <hr>
@@ -117,17 +139,27 @@
             { texto: "No hay persona que no contenga chispas de otras almas. Y si él no llega a la corrección, al final de la corrección, entonces ninguno de ellos llegará — así de simple. Por eso la difusión de la sabiduría de la Cabalá, su diseminación, es algo de tremenda importancia.", autor: "Rav Laitman" }
         ];
 
-        // Lógica de Rotación: Selecciona una frase diferente cada hora
-        const horaActual = new Date().getHours();
-        // Usamos el operador módulo (%) para asegurar que el índice siempre esté dentro del array
-        const indiceFrase = horaActual % frases.length; 
-        const fraseActual = frases[indiceFrase];
+        // Inicializar el índice basado en la hora actual
+        let indiceActual = new Date().getHours() % frases.length;
 
-        // Renderizar la frase destacada
-        document.getElementById('frase-dia').innerText = `"${fraseActual.texto}"`;
-        document.getElementById('autor-dia').innerText = `— ${fraseActual.autor}`;
+        // Función para actualizar el texto en la pantalla
+        function mostrarFraseDestacada() {
+            const frase = frases[indiceActual];
+            document.getElementById('frase-dia').innerText = `"${frase.texto}"`;
+            document.getElementById('autor-dia').innerText = `— ${frase.autor}`;
+        }
 
-        // Renderizar el archivo completo
+        // Lógica del botón: Avanzar a la siguiente frase
+        document.getElementById('btn-siguiente').addEventListener('click', () => {
+            // Suma 1 al índice. Si llega al final, vuelve a empezar en 0
+            indiceActual = (indiceActual + 1) % frases.length;
+            mostrarFraseDestacada();
+        });
+
+        // Cargar la primera frase al abrir la página
+        mostrarFraseDestacada();
+
+        // Renderizar el archivo completo en la parte inferior
         const listaContenedor = document.getElementById('lista-frases');
         frases.forEach(frase => {
             const parrafo = document.createElement('p');
