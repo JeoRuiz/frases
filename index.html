@@ -2,45 +2,148 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivo Cabalístico</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'IBM+Plex Mono', monospace; background: #f4f4f4; color: #333; display: flex; justify-content: center; padding: 50px; }
-        .container { max-width: 600px; }
-        #frase-actual { font-size: 1.5rem; margin-bottom: 10px; }
-        .autor { font-size: 0.9rem; color: #777; }
-        hr { border: 0; border-top: 1px solid #ccc; margin: 40px 0; }
+        /* Estilos minimalistas e industriales */
+        body { 
+            font-family: 'IBM Plex Mono', monospace; 
+            background-color: #f4f4f4; 
+            color: #2b2b2b; 
+            display: flex; 
+            justify-content: center; 
+            padding: 60px 20px; 
+            line-height: 1.7; 
+            margin: 0;
+        }
+        .container { 
+            max-width: 800px; 
+            width: 100%; 
+        }
+        
+        /* Sección de la frase destacada (Rotador) */
+        .destacado {
+            margin-bottom: 80px;
+        }
+        #frase-dia { 
+            font-size: 1.5rem; 
+            font-weight: 400; 
+            padding-left: 25px; 
+            border-left: 3px solid #2b2b2b; 
+            margin-bottom: 15px;
+        }
+        #autor-dia {
+            font-size: 0.9rem;
+            color: #666;
+            padding-left: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Separador */
+        hr { 
+            border: 0; 
+            border-top: 1px dashed #ccc; 
+            margin: 60px 0; 
+        }
+
+        /* Sección del archivo (Todas las frases) */
+        h2 { 
+            font-size: 1rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-bottom: 40px; 
+            font-weight: 600;
+        }
+        .archivo p { 
+            font-size: 0.95rem;
+            margin-bottom: 30px; 
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .archivo p:last-child {
+            border-bottom: none;
+        }
+        .cita-texto {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .cita-autor {
+            display: block;
+            font-size: 0.8rem;
+            color: #888;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="frase-actual">Cargando sabiduría...</div>
-        <div id="autor-actual" class="autor"></div>
+        
+        <div class="destacado">
+            <div id="frase-dia">Cargando sabiduría...</div>
+            <div id="autor-dia"></div>
+        </div>
+        
         <hr>
-        <h3>Archivo completo:</h3>
-        <div id="lista-frases"></div>
+
+        <h2>Archivo Completo</h2>
+        <div id="lista-frases" class="archivo"></div>
+        
     </div>
 
     <script>
-       const API_URL = 'https://script.google.com/macros/s/AKfycbxgc8mXIJoFjadPfqdn7Pi3OF9gSNPC57a_ozMoVvfOT5kGP_-hJP-IaLLe0IBTzP4IBA/exec';
+        // Corpus completo de frases
+        const frases = [
+            { texto: "En el plano espiritual, 'honor' no se refiere al honor propio, sino todo lo contrario: a quién le doy yo honor. Necesito honrarlo, necesito apreciarlo, necesito reconocerlo, y que sea grande ante mis ojos — porque solo entonces mis vasijas de recepción cederán y yo podré otorgarle.", autor: "Rav Laitman" },
+            { texto: "Poder corregir las vasijas de recepción, adquirir la intención — la luz reflejada — solo es posible si el Creador no es sentido dentro de nosotros, dentro de nuestros sentidos. Por eso, el tiempo de preparación de la vasija para recibir la luz debe transcurrir en oscuridad, en ocultamiento doble o en ocultamiento simple. El trabajo consiste entonces en esforzarse por trabajar en la grandeza e importancia del Creador sin aún conocerlo.", autor: "Rav Laitman" },
+            { texto: "Si una persona, desde la negatividad — desde no sentir la divinidad — desarrolla un deseo hacia lo divino y llega al estado de 'hasta que no me deja dormir', entonces merece que el Creador comience a revelársele.", autor: "Rav Laitman" },
+            { texto: "El Creador debe estar oculto, el placer debe estar oculto, y el sufrimiento — es decir, el vacío — debe estar específicamente revelado. En tal estado, la persona debe moverse y desarrollarse en la dirección correcta, para construir la vasija.", autor: "Rav Laitman" },
+            { texto: "El Creador está siempre dentro de mí, en mi alma. Pero soy yo mismo, desde mi interior, quien corrige mi percepción de Él, mi sensibilidad hacia Él, mi capacidad de sentirlo.", autor: "Rav Laitman" },
+            { texto: "Cuando desarrollo el sexto sentido, y lo desarrollo hasta el punto en que es digno de su función, este deja de pertenecerme, deja de depender de mí. Se vuelve verdaderamente objetivo, desvinculado de mi voluntad de recibir. Es como si mirara con los ojos de otro — sin prejuicios.", autor: "Rav Laitman" },
+            { texto: "Quien comienza a estudiar Cabalá debe cambiar su fuerza motriz: de la fuerza que empuja desde atrás mediante el sufrimiento, a la fuerza que atrae desde adelante mediante los placeres — incluso placeres animales. Es decir, pienso que me irá bien, en lugar de que lo malo me obliga a huir.", autor: "Rav Laitman" },
+            { texto: "La sabiduría de la Cabalá dice que no debemos borrar nada. Disfruta esta vida como quieras, sigue disfrutando — y al mismo tiempo sigue estudiando Cabalá e intenta llegar al estado en que la espiritualidad sea más grande que este mundo, que sea eterna, que te abra horizontes.", autor: "Rav Laitman" },
+            { texto: "Necesitamos reemplazar el sufrimiento animal por el sufrimiento del amor. Que yo sienta carencia — desde el amor, desde querer la espiritualidad, desde que esto es grande y hermoso — y no porque los problemas me estén picando por detrás.", autor: "Rav Laitman" },
+            { texto: "A una persona sola le resulta difícil hacer esto; solo es posible a través de la sociedad. Que la sociedad le provea la certeza en esto, la sensación de esto, el entusiasmo por esto. Si veo que mucha gente se entusiasma con esto, entonces yo también puedo — entonces ya no me concentro en cómo salir de mis propios problemas.", autor: "Rav Laitman" },
+            { texto: "En la espiritualidad, ambos son inseparables — son el frente y el dorso de la misma vasija. Por lo tanto, no existe estado alguno en la espiritualidad en el que la persona realmente sufra. La sensación de oscuridad es una sensación constructiva — es la sensación de creación, de construcción de la vasija. Es alegría, no dolor ni desesperación. Más allá de la barrera no existe negación alguna.", autor: "Rav Laitman" },
+            { texto: "Cuanto más me conmueve la sociedad — que reconoce la divinidad, que habla de Él, que esto es grande — como en cualquier publicidad, como en cualquier moda, como en todas las cosas que nos inundan la mente — en la medida en que recibo ese entusiasmo de ellos, así puedo hacer crecer este sentido, desarrollarlo, hasta comenzar a sentir la espiritualidad en él.", autor: "Rav Laitman" },
+            { texto: "Para conmoverme ante la grandeza espiritual que expresa la sociedad, necesito sentirlos, o apreciarlos como muy grandes — a todos estos amigos — a fin de conmoverme más intensamente con ellos, y verme a mí mismo por debajo de ellos. Y cuanto mayor sea su número, más me conmoveré.", autor: "Rav Laitman" },
+            { texto: "Debo organizarme un marco artificial tal que solo ellos me influyan, y nada más. Y entonces, cuanto más me esfuerce en dejar que esto me inunde la mente — en volverme verdaderamente sujeto a sus perspectivas — en esa misma medida lograré desarrollar el punto en el corazón hasta que se convierta en una vasija.", autor: "Rav Laitman" },
+            { texto: "Lo principal es conmoverse — es decir, colocarme frente a la sociedad en un estado de entusiasmo.", autor: "Rav Laitman" },
+            { texto: "Por supuesto, depende de cómo yo ordene mi sentido de importancia y mi mirada. Eso ya es mi trabajo.", autor: "Rav Laitman" },
+            { texto: "El problema es que el grado de mi entusiasmo por la sociedad también depende de cómo percibo que otros se entusiasman con ella — tanto los que están dentro de la sociedad como los que están a su alrededor.", autor: "Rav Laitman" },
+            { texto: "También depende de cómo la sociedad se presenta ante mí. ¿Me están estimulando? ¿Me dan razones para entusiasmarme? Deben mostrarme que hay algo grande en ellos. Que son grandes. Que son de esos que te hacen pensar: ¿wow, qué está pasando ahí?", autor: "Rav Laitman" },
+            { texto: "Si hay alguien a tu lado — un amigo que ya está en la espiritualidad o que aún no lo está — el entusiasmo y la influencia que ejerce sobre ti puede ser mucho más poderosa, a través de lo físico.", autor: "Rav Laitman" },
+            { texto: "El amigo que está a tu lado es para ti un ejemplo vivo; actúa sobre ti más que cualquier otra cosa y puede empujarte con mucha más fuerza. Por eso debemos relacionarnos unos con otros como si fuésemos simplemente la fuerza sin la cual es imposible avanzar — exactamente como en un comando militar.", autor: "Rav Laitman" },
+            { texto: "No hay persona que no contenga chispas de otras almas. Y si él no llega a la corrección, al final de la corrección, entonces ninguno de ellos llegará — así de simple. Por eso la difusión de la sabiduría de la Cabalá, su diseminación, es algo de tremenda importancia.", autor: "Rav Laitman" }
+        ];
 
-        async function cargarFrases() {
-            const res = await fetch(API_URL);
-            const data = await res.json();
-            
-            // Mostrar todas las frases
-            const lista = document.getElementById('lista-frases');
-            data.forEach(item => {
-                lista.innerHTML += `<p>"${item.frase}" — ${item.autor}</p>`;
-            });
+        // Lógica de Rotación: Selecciona una frase diferente cada hora
+        const horaActual = new Date().getHours();
+        // Usamos el operador módulo (%) para asegurar que el índice siempre esté dentro del array
+        const indiceFrase = horaActual % frases.length; 
+        const fraseActual = frases[indiceFrase];
 
-            // Lógica de hora
-            const horaActual = new Date().getHours();
-            const fraseDia = data.find(item => parseInt(item.hora) === horaActual) || data[0];
+        // Renderizar la frase destacada
+        document.getElementById('frase-dia').innerText = `"${fraseActual.texto}"`;
+        document.getElementById('autor-dia').innerText = `— ${fraseActual.autor}`;
+
+        // Renderizar el archivo completo
+        const listaContenedor = document.getElementById('lista-frases');
+        frases.forEach(frase => {
+            const parrafo = document.createElement('p');
             
-            document.getElementById('frase-actual').innerText = `"${fraseDia.frase}"`;
-            document.getElementById('autor-actual').innerText = fraseDia.autor;
-        }
-        cargarFrases();
+            const textoCita = document.createElement('span');
+            textoCita.className = 'cita-texto';
+            textoCita.innerText = `"${frase.texto}"`;
+            
+            const autorCita = document.createElement('span');
+            autorCita.className = 'cita-autor';
+            autorCita.innerText = `— ${frase.autor}`;
+            
+            parrafo.appendChild(textoCita);
+            parrafo.appendChild(autorCita);
+            listaContenedor.appendChild(parrafo);
+        });
     </script>
 </body>
 </html>
