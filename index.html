@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Espacio de Estudio Centralizado</title>
     <style>
-        /* Diseño de Inspiración Bauhaus: Minimalista, funcional y geométrico */
+        /* Diseño Minimalista y Funcional */
         :root {
-            --bg-principal: #fbfbfb;
+            --bg-principal: #f4f4f5;
             --bg-tarjeta: #ffffff;
-            --texto-primario: #1a1a1a;
-            --texto-secundario: #555555;
+            --texto-primario: #18181b;
+            --texto-secundario: #52525b;
             --acento: #345c84;
-            --borde: #e0e0e0;
+            --borde: #e4e4e7;
             --fuente-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             --fuente-serif: 'Georgia', serif;
         }
@@ -36,90 +36,95 @@
             margin: 0 auto;
         }
 
-        /* Cabecera y Reloj */
         header {
-            border-bottom: 3px solid var(--texto-primario);
-            padding-bottom: 20px;
+            text-align: center;
             margin-bottom: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--borde);
         }
 
         h1 {
             font-size: 2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: -1px;
+            font-weight: 500;
+            color: var(--texto-primario);
         }
 
-        .reloj-contenedor {
-            font-size: 1.5rem;
-            font-weight: 300;
-            font-variant-numeric: tabular-nums;
-            background: var(--texto-primario);
-            color: var(--bg-principal);
-            padding: 4px 12px;
-            border-radius: 2px;
-        }
-
-        /* Secciones del Dashboard */
         section {
             background: var(--bg-tarjeta);
             border: 1px solid var(--borde);
             padding: 30px;
-            margin-bottom: 35px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         h2 {
             font-size: 1.25rem;
-            font-weight: 600;
             margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--texto-primario);
+            color: var(--texto-secundario);
             border-left: 4px solid var(--acento);
             padding-left: 10px;
         }
 
-        /* Contenedores de Media */
-        .media-wrapper {
+        /* Contenedores de Video */
+        .video-container {
             position: relative;
             width: 100%;
+            padding-bottom: 56.25%; /* Aspect ratio 16:9 */
             margin-bottom: 20px;
-            border-radius: 2px;
-            overflow: hidden;
             background: #000;
+            border-radius: 4px;
+            overflow: hidden;
         }
 
-        .video-container {
-            aspect-ratio: 16/9;
-        }
-
-        iframe {
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: 0;
         }
 
-        /* Controles de la Sección de Lectura */
+        /* Controles de Lectura */
         .controles-lectura {
-            background: #f0f2f5;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            border-radius: 4px;
+            background: #f8fafc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--borde);
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
             align-items: center;
             justify-content: space-between;
         }
 
-        .grupo-control {
+        button {
+            background: var(--bg-tarjeta);
+            border: 1px solid var(--borde);
+            padding: 8px 16px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+            font-weight: 500;
+            color: var(--texto-primario);
+        }
+
+        button:hover {
+            background: var(--acento);
+            color: white;
+            border-color: var(--acento);
+        }
+
+        .btn-activo {
+            background: var(--acento);
+            color: white;
+            border-color: var(--acento);
+        }
+
+        .control-grupo {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -127,89 +132,43 @@
 
         label {
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 600;
             text-transform: uppercase;
             color: var(--texto-secundario);
         }
 
-        button {
-            background: var(--bg-tarjeta);
-            border: 1px solid var(--borde);
-            padding: 6px 12px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border-radius: 3px;
-            transition: all 0.2s ease;
-        }
-
-        button:hover {
-            background: var(--texto-primario);
-            color: var(--bg-principal);
-            border-color: var(--texto-primario);
-        }
-
-        button.activo {
-            background: var(--acento);
-            color: white;
-            border-color: var(--acento);
-        }
-
-        .btn-voz {
-            font-weight: 500;
-        }
-
-        input[type="range"] {
-            accent-color: var(--acento);
-            cursor: pointer;
-        }
-
-        .speed-display {
-            font-size: 0.9rem;
-            min-width: 35px;
-            font-weight: bold;
-        }
-
-        /* Área de Texto Dinámica */
-        .contenido-lectura {
+        /* Rectángulo de Lectura */
+        .area-lectura {
             font-family: var(--fuente-serif);
-            color: #2c2c2c;
+            font-size: 1.15rem;
+            color: #333;
             text-align: justify;
             max-height: 500px;
             overflow-y: auto;
-            padding-right: 15px;
-            border-bottom: 1px solid var(--borde);
+            padding: 20px;
+            background: #fafafa;
+            border: 1px solid var(--borde);
+            border-radius: 4px;
+            line-height: 1.8;
         }
 
-        /* Tamaños de Fuente Dinámicos */
-        .text-pequeno { font-size: 1rem; }
-        .text-mediano { font-size: 1.2rem; }
-        .text-grande { font-size: 1.4rem; }
-
-        .contenido-lectura p {
-            margin-bottom: 1.5em;
+        .area-lectura p {
+            margin-bottom: 1.2em;
         }
 
-        .contenido-lectura h3 {
+        .area-lectura h3 {
             font-family: var(--fuente-sans);
-            font-size: 1.25rem;
-            margin: 1.5em 0 0.5em 0;
-            color: var(--texto-primario);
+            font-size: 1.3rem;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: var(--acento);
         }
 
-        /* Personalización de la barra de desplazamiento */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #aaa;
-        }
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
     </style>
 </head>
 <body>
@@ -217,199 +176,223 @@
     <div class="container">
         
         <header>
-            <h1>Panel de Aprendizaje Autónomo</h1>
-            <div class="reloj-contenedor" id="reloj">00:00:00</div>
+            <h1>Material de Estudio del Día</h1>
         </header>
 
-        <!-- SECCIÓN DE VIDEOS -->
         <section>
-            <h2>Lecciones del Día</h2>
+            <h2>Lecciones Audiovisuales</h2>
             
-            <div class="media-wrapper video-container">
+            <div class="video-container">
                 <iframe src="https://kabbalahmedia.info/lessons/cu/7BW1CHdy?mediaType=video&shareLang=es&c=tQcd5PhF&embed=1&autoPlay=0" allowfullscreen></iframe>
             </div>
 
-            <div class="media-wrapper video-container">
+            <div class="video-container">
                 <iframe src="https://kabbalahmedia.info/lessons/cu/eunHQnB6?mediaType=video&shareLang=es&c=tQcd5PhF&embed=1&autoPlay=0" allowfullscreen></iframe>
             </div>
         </section>
 
-        <!-- SECCIÓN DE AUDIO / MÚSICA -->
         <section>
-            <h2>Música de Enfoque</h2>
-            <div class="media-wrapper" style="height: 166px;">
-                <iframe scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1971690999&color=%23345c84&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-            </div>
-        </section>
-
-        <!-- SECCIÓN DE LECTURA DINÁMICA -->
-        <section>
-            <h2>Documento de Análisis e Integración</h2>
+            <h2>Documento de Estudio</h2>
             
-            <!-- Barra de Herramientas Interactiva -->
             <div class="controles-lectura">
-                <div class="grupo-control">
-                    <label>Texto:</label>
-                    <button onclick="cambiarTamano('pequeno')" id="btn-pequeno">A</button>
-                    <button onclick="cambiarTamano('mediano')" id="btn-mediano" class="activo">A+</button>
-                    <button onclick="cambiarTamano('grande')" id="btn-grande">A++</button>
+                <div class="control-grupo">
+                    <label>Asistente de Voz (Español):</label>
+                    <button onclick="reproducirTexto()" id="btn-play">▶ Leer</button>
+                    <button onclick="pausarTexto()" id="btn-pause">⏸ Pausa</button>
+                    <button onclick="detenerTexto()">⏹ Detener</button>
                 </div>
-
-                <div class="grupo-control">
-                    <label>Asistente de Voz:</label>
-                    <button onclick="reproducirTexto()" class="btn-voz" id="btn-play">▶ Leer</button>
-                    <button onclick="pausarTexto()" class="btn-voz" id="btn-pause">⏸ Pausa</button>
-                    <button onclick="detenerTexto()" class="btn-voz">⏹ Parar</button>
-                </div>
-
-                <div class="grupo-control">
+                
+                <div class="control-grupo">
                     <label>Velocidad:</label>
-                    <input type="range" id="velocidad-voz" min="0.5" max="2" step="0.1" value="1" oninput="actualizarVelocidad(this.value)">
-                    <span class="speed-display" id="valor-velocidad">1.0x</span>
+                    <input type="range" id="velocidad-voz" min="0.5" max="2" step="0.1" value="1" onchange="actualizarVelocidad()">
+                    <span id="valor-velocidad" style="font-weight: bold; width: 30px;">1.0x</span>
                 </div>
             </div>
 
-            <!-- Área de Texto Fija para Lectura Dinámica -->
-            <div id="texto-estudio" class="contenido-lectura text-mediano">
-                <h3>Metodologías de Retención Cognitiva y Procesamiento Activo</h3>
-                <p>El aprendizaje profundo y de largo plazo no se logra mediante la simple recepción pasiva de información. La neurociencia cognitiva demuestra que para consolidar conceptos complejos —ya sea en el campo de las matemáticas vectoriales, la programación avanzada o el análisis filológico— el cerebro requiere un proceso de codificación e interconexión activa.</p>
+            <div id="texto-estudio" class="area-lectura">
+                <h3>Acerca de la ayuda que viene desde lo Alto</h3>
+                <p><strong>Artículo 8, 1986</strong></p>
+                <p>Nuestros sabios dijeron (Sucá, 52): «Rabí Shimón Ben Lakish dijo: "El instinto del hombre lo supera todos los días y busca matarlo", como se dice: "El malvado mira al justo y busca matarlo". Y si no fuera porque el Creador lo ayuda, no lo podría superar, como se dice: "El Señor no le soltará la mano ni lo condenará cuando sea juzgado"».</p>
                 
-                <p>Cuando nos enfrentamos a un bloque de conocimiento nuevo, la primera fase consiste en la desestructuración de la información. No basta con leer un texto de corrido o mirar un video de forma lineal; es fundamental fragmentar las ideas complejas en unidades mínimas de información independientes. Este enfoque permite reducir la carga cognitiva de la memoria de trabajo, facilitando que el cerebro asimile la lógica subyacente sin saturarse.</p>
-
-                <h3>La Técnica de Síntesis Explicativa</h3>
-                <p>Una vez aisladas las unidades conceptuales, el siguiente paso crítico es la traducción semántica personalizada. Esto implica reformular el concepto utilizando un lenguaje propio, simple y directo, desprovisto de tecnicismos innecesarios. Si no se puede explicar un concepto de manera sencilla, significa que aún no se ha comprendido su estructura raíz.</p>
+                <p>Está escrito en El Zóhar (Vaishlaj, artículo 10-11): «Rabí Jizkiyá dijo: "¿Por qué entonces está escrito: 'Y Yaakov (Jacob) quedó solo?' ¿Dónde estaban todos los campamentos de los ángeles que usted dice que lo rodearon y vinieron con él?". Rabí Yehuda dijo: "Ya que él se puso en peligro al permanecer solo por la noche y veía el peligro con sus propios ojos; ya que ellos vinieron a protegerlo solo de un peligro invisible, por eso se separaron de él".</p>
                 
-                <p>Este ejercicio de traducción obliga al estudiante a activar redes neuronales preexistentes para anclar el nuevo dato, transformando la memoria de corto plazo en conocimiento firmemente integrado. La repetición espaciada y el autoexamen basado en estas notas atómicas completan el ciclo de retención, evitando la curva del olvido y optimizando los tiempos de estudio diarios.</p>
+                <p>Entonces dijo: "No soy digno de toda la benevolencia y de toda la verdad que has hecho con Tu siervo". Estos son los campamentos de los ángeles sagrados, que lo rodearon y ahora se separaron de él porque se había puesto en un peligro evidente. Rabí Itzjak dijo: "Esta es la razón por la cual los ángeles sagrados se separaron de él. Lo habían rodeado y ahora se han separado, porque él se puso en un peligro evidente"».</p>
+                
+                <p>En consecuencia, surge la pregunta: «¿Cuándo se separaron los ángeles de él?». Se separaron cuando se puso en peligro, es decir, primero se puso en peligro, y luego los ángeles se separaron de él. Se dijo acerca de esto: «Y Yaakov quedó solo». Es decir, cuando lo vieron se separaron, deberíamos decir: «en la medida que uno entra, el otro sale».</p>
+                
+                <p>Debemos entender por qué los ángeles no vienen a protegerlo frente al peligro evidente, es como si dijéramos que no tienen la fuerza de protegerlo ante un peligro real y evidente. Si es así, ¿cuándo sí tienen la fuerza para protegerlo? Justamente cuando no se ve el peligro. Y si no se ve el peligro, ¿quién sabe que existe aquí un peligro que requiere protección?, es decir, ¿para quién debería ser evidente, para la persona? ¿O si los ángeles ven que él está ante un peligro evidente, entonces se retiran, a pesar de que la persona no lo sepa?</p>
+                
+                <p>Para explicar esto en el trabajo, primero tenemos que saber cuál es el peligro que hay allí. Después explicaremos lo que significa «Peligro evidente». Se sabe que el orden del trabajo comienza de la línea derecha. «Derecha» significa algo que no requiere corrección. Lo que sí requiere corrección se llama «Izquierda», como dijeron nuestros sabios: «Colocamos Tefilín en la izquierda», como se dijo: «Y será una señal en tu mano». Yad Ko (Tu mano). Nuestros sabios dijeron: «La izquierda rechaza y la derecha acerca».</p>
+                
+                <p>Por esta razón, cuando a una persona se le enseña a caminar por los caminos del trabajo comienza desde la derecha, porque la derecha no representa ningún peligro para la vida espiritual, ya que siempre puede agregar y continuar. Porque la línea derecha se llama Jésed (benevolencia), esto significa que la persona le da importancia a la Torá y a las Mitzvot (preceptos) y dice que el Creador ha sido benevolente con él al darle el pensamiento y el deseo de observar la Torá y las Mitzvot, e incluso la intención más simple, es decir, que no sabe qué pensar durante el cumplimiento de las Mitzvot y cuando se dedica a la Torá, simplemente sabe que está cumpliendo con el precepto del Creador, quien nos lo ordenó a través de Moshé, esto es suficiente como para comprometerlo a observar la Torá y las Mitzvot, cada uno de acuerdo a sus posibilidades y esto es suficiente para él.</p>
+                
+                <p>Por lo tanto, en cada una de las acciones que hace cuando se ocupa en la Torá o con el cumplimiento de las Mitzvot, él agradece y alaba al Creador por haber sido benevolente con él, por haberle dado el pensamiento y el deseo de cumplir con la Torá y las Mitzvot. Por lo tanto, en cada una de las Mitzvot agradece y alaba al Creador por haberlo recompensado con poder aferrarse a la Torá y a las Mitzvot, no importa cuánto. Por el contrario, todo el tiempo que el cuerpo le permita aprender, aprenderá tanto como pueda y se esforzará en cumplir con las Mitzvot. Él es feliz de poder cumplir con la voluntad del Creador, cosa que no les fue dada a otras personas como a él, lo que significa que el Creador no les dio la comprensión y el deseo de observar las Mitzvot del Creador.</p>
+                
+                <p>Al que camina por esta línea, aún no se lo considera que camina por la línea de la derecha. Porque vemos que cuando solo hay una línea y la persona no ve la otra línea, es imposible decir que a esta se la llame «Línea derecha». Ya que se puede decir «Derecha» solo cuando hay otra línea más. Entonces se puede decir que esta es la «Derecha» y la otra es la «Izquierda».</p>
+                
+                <p>Por lo tanto, al guiar a una persona a ir por los caminos del Creador, se le dice: «Debes saber que el Creador no quiere nada de ti, solo que observes la Torá y las Mitzvot con total sencillez. Eso es suficiente para ti, no necesitas grandes intenciones como los grandes hombres justos». Lo que el Creador requiere, es que el hombre observe la Torá y las Mitzvot de acuerdo a su propia comprensión, cada uno según sus propias características, es decir, con sus talentos innatos. Es imposible exigirle a una persona que se dedique a la Torá y a las Mitzvot de la misma manera que aquellos que tienen grandes talentos o son valientes, sino cada uno de acuerdo con la característica con la que nació.</p>
+                
+                <p>Es como dice el sagrado Arí «No hay un día que sea como otro o un momento que sea como el siguiente y no hay hombre que sea como otro, y el gálbano (tipo de incienso) corregirá lo que el olíbano (otro tipo de incienso) no corregirá». Es decir, que cada persona tiene que corregir su esencia y cualidad con la cual nació. Y no se le exige a la persona que haga más de lo que le permiten la fuerza y la mente con las cuales nació.</p>
+                
+                <p>De esto se deduce que una línea es cuando le dicen que no necesita encontrar falencias en su trabajo. A menos que observe la Torá y las Mitzvot con total sencillez, esto es algo grandioso ya que está cumpliendo con los preceptos del Rey. El hombre debe tener en cuenta y apreciar su trabajo con total sencillez. Es decir, si él está rezando y leyendo un versículo o una bendición, ya sea la bendición de las Mitzvot o la bendición por disfrutar, debe pensar a quién le está hablando. Ciertamente de acuerdo a como se lo imagine, porque ¿frente a quién está?, seguramente se sentirá diferente al bendecir y al orar, e incluso si él no conoce el significado de las palabras sigue siendo muy importante, porque no importa lo que él diga sino a quién le está hablando.</p>
+                
+                <p>Por lo tanto, al cumplir alguna Mitzvá, como usar Tzitzit (prenda para la plegaria), observa el hecho de que hay algunos judíos en el mundo a los que no se les dio la oportunidad de usar Tzitzit, pero a él sí se le dio el privilegio de guardar el precepto del Creador. ¡Debe estar muy agradecido al Creador por esto! Por lo tanto, en la medida en que su mente simple se lo permite, de acuerdo con su creencia por la grandeza del Creador y por el gran privilegio de poder hacer lo que el Creador quiere, por estas razones, él dice la bendición «Bendito eres Tú, Señor». Es decir, él bendice al Creador y agradece por recompensarlo y darle lo que no le dio a otras personas.</p>
+                
+                <p>Además, cuando bendice por disfrutar, también le agradece al Creador por recompensarlo, en creer que el Creador le ha proporcionado los placeres que las personas pueden disfrutar. Pero otras personas no tienen esa mente, de creer que el Creador les ha dado todas las cosas con las cuales la gente puede disfrutar. Y también, la persona dice durante las dieciocho bendiciones en la mañana: «Bendito eres Señor, por no hacerme gentil», agradeciendo al Creador por haberlo hecho Israel.</p>
+                
+                <p>Por lo tanto, vemos que debemos agradecer al Creador por la parte más pequeña que tenemos en la Kedushá (Santidad) y que a esto lo consideramos como algo grande. Aunque no tengamos la capacidad de apreciarlo, igualmente debemos creerlo. Escuché de Baal HaSulam que una vez dijo que por mucho que entendamos la importancia de la Torá y las Mitzvot Lishmá (en nombre de la Torá), en verdad, la importancia de Lo Lishmá (no en Su nombre) que realizamos, es incomparablemente mayor a lo que apreciamos Lishmá. Esto significa que no podemos apreciar la satisfacción que el Creador tiene por nuestro deseo de hacer Su voluntad.</p>
+                
+                <p>Ya que cada acto que se hace abajo, en este mundo, es el causante del despertar arriba en los mundos superiores, como dice el sagrado Zóhar: «El acto de abajo despierta el acto de arriba». Como el hombre aún no ha sido recompensado con ingresar al palacio del Rey y alcanzar las luces que se renuevan por los actos de los inferiores, no le queda otra alternativa más que creer que esto es así. Es decir, cuando una persona va a la sinagoga y dice allí un versículo al Creador, este acto para el Creador tiene una importancia invaluable, porque en ese momento la persona realiza un acto al cual no hay nada más que agregar, esta es la señal de que el acto es completo, y es tan importante para el Creador como si lo hubiera cumplido con todas las intenciones de los justos completos.</p>
+                
+                <p>En otras palabras, le dicen que hay justos que agregan a la acción solo intenciones, pero a la acción misma no hay nada más para agregar, como se dijo anteriormente. Se dijo sobre el acto: «No agregues y no disminuyas». Sin embargo, le dicen que el trabajo de las intenciones no es para él, sino que es solo para los pocos virtuosos elegidos. Y si, de todas maneras, esta es para él la plenitud, es que pone toda su entusiasmo y fuerza en guardar todo lo que recibió de la educación.</p>
+                
+                <p>Con esto él sabe que todo lo que tiene que hacer es solo cuidar la cantidad. En cuanto a la calidad, es decir mejorar las intenciones, o sea, las razones que lo obligan a observar la Torá y las Mitzvot, lo sabe por lo que le transmitieron en su educación. Que de manera general tendrá en este mundo y así también en el mundo por venir una recompensa a cambio de su trabajo en la observación de la Torá y las Mitzvot.</p>
+                
+                <p>Esto se considera: «Una sola línea» y no la «Línea derecha», porque todavía no hay aquí un estado de izquierda, por lo que se mencionó que no podemos decir que esta línea se llama «Derecha», ya que no hay «Derecha» sin «Izquierda». En este camino, no hay peligro de que pueda perder la vida espiritual de Kedushá (Santidad). Por el contrario, siempre avanza porque sus cálculos se miden de acuerdo a los actos y cada día se agregan nuevos actos, por lo tanto, siempre avanza, porque ve que cada día agrega nuevas acciones.</p>
+                
+                <p>Por ejemplo, cuando llega a la edad de veinte años, sabe que lleva siete años observando la Torá y las Mitzvot. Y cuando llega a la edad de treinta años ya ha adquirido un patrimonio de diecisiete años de Torá y Mitzvot. De acuerdo con esto, este camino es seguro y donde su vida espiritual no corre ningún peligro, ya que él tiene una base sobre la cual observar y medir su progreso. Por lo tanto, este camino se llama un camino seguro, donde no hay ningún peligro para su vida espiritual, es decir, en este camino no caerá de su nivel y nunca se desesperará al ver que no está teniendo éxito en su trabajo, sino que siempre puede estar tranquilo.</p>
+                
+                <p>Lo que él se lamenta a veces en su trabajo, es que le duele ver que otras personas a su alrededor no sirvan al Creador como él. Esto es de lo único que se lamenta en su trabajo. Pero acerca de sí mismo se da cuenta que puede estar contento, que gracias a Dios tiene un patrimonio de Torá y Mitzvot. Sin embargo, cuando le dicen que hay otro camino llamado «Línea izquierda», lo que significa que en este camino la persona ve que, aunque se dedica a la Torá y a las Mitzvot, debe corregirse durante el trabajo, y que la corrección correcta no se refiere a los actos, sino que debe corregir la intención, o sea, con qué intención hace sus actos, es decir, cuál es la razón que lo obliga observar la Torá y las Mitzvot, esto ya se considera un camino peligroso por dos razones:</p>
+                
+                <p>1) Ya que se le dice que en verdad es imposible trabajar sin recompensa. Más bien, cualquier persona que hace algún trabajo ya sea grande o pequeño, necesita combustibles que le den fuerza para trabajar. Si le dicen que la retribución es la de ser recompensado con darle contento al Creador, llamada «Que todo su deseo será solo el de otorgar al Creador», el cuerpo no siempre entiende que esta razón es suficiente para darle fuerza para trabajar, ya que va en contra de la naturaleza del hombre porque la sustancia del hombre es el deseo de recibir con el fin de recibir. Por esta razón, cuando trabajaba con una sola línea, es decir en base a la recompensa en este mundo y en el mundo por venir que recibirá a cambio de su trabajo en este mundo. Entonces el cuerpo puede entender que para sí mismo conviene trabajar, es decir, que disfrutará y recibirá recompensa.</p>
+                
+                <p>Pero cuando le dicen que debe trabajar con intenciones, es decir que tiene que dirigir cada acción que hace para darle contento a su Hacedor, él se queda sin fuerzas para trabajar, ya que su cuerpo le exige explicaciones: «¿Cómo puedo trabajar y renunciar a tantas cosas de las que el cuerpo podría disfrutar, para que el Creador tenga placer?». Por este camino, existe el peligro de que pueda perder toda su vida espiritual, incluso lo que ha adquirido mientras se dedicaba a trabajar con una sola línea.</p>
+                
+                <p>2) Y la segunda razón del peligro, es que incluso si cada vez se sobrepone y quiere trabajar con el fin de otorgar, ve que con respecto a la intención no se sobrepone, sino que siempre ve lo opuesto. Es decir que cuando trabajaba con una sola línea veía que estaba avanzando. Es decir, si pasaron diez años de trabajo, entonces ya tiene diez años de Torá y Mitzvot, y si pasaron veinte años de dedicarse a la Torá y a las Mitzvot, entonces ya tiene un patrimonio de veinte años. Pero aquí, en la línea derecha sucede lo contrario. Si han pasado tres años y no puede dirigir sus actos con el fin de otorgar, entonces está más destrozado y quebrado, ya que ha estado trabajando en el camino del otorgamiento durante tres años, pero no ve nada de ello.</p>
+                
+                <p>Es decir, no tiene ninguna posesión en su mano, a pesar de que ha invertido tres años de trabajo. Mucho más si invirtió cinco años y así sucesivamente; por lo tanto, cuanto más tiempo haya invertido en el trabajo, ve que está peor. Pero Baal HaSulam dijo que en verdad, por un lado podemos decir que la persona sí avanzó hacia la verdad, es decir, en el reconocimiento del mal. Ya que antes de comenzar el trabajo pensaba que no sería tan difícil sobreponerse a su mal. Es como dijeron nuestros sabios (Sucá, 52): «Para los malvados la inclinación al mal les parece como un cabello y a los justos como una alta montaña».</p>
+                
+                <p>Pero, por otro lado, el hombre necesita ver la verdad tal como es, lo que significa que con esto su mal no se movió ni un poco, y esto podría llevarlo a estar en peligro de desesperarse, porque podría decir que Lo Lishmá (no en Su nombre) no tiene valor, ya que el principal trabajo es darle contento al Creador, y él ve que no se podrá sobreponer. Resulta que, al ir por la línea izquierda, Dios no lo quiera, podría ser rechazado por completo de la vida espiritual porque ya dañó a Lo Lishmá. Por lo tanto, él sale perdiendo de cualquier forma y no tiene ningún aferramiento en la vida de Kedushá (Santidad).</p>
+                
+                <p>Por esta razón, no se guía a la persona por una sola línea. Y si se despierta solo y tiene un impulso propio, y comienza a buscar la verdad, aunque se le haya guiado para ir de esa manera por siempre o solo al principio del trabajo espiritual, no le hubieran revelado la línea izquierda, para corregirse a sí mismo, es decir que todos sus actos sean en nombre del Creador.</p>
+                
+                <p>Esto es como dice Rambam (Maimónides) (al final de Hiljot Teshuvá): «Los sabios dijeron: "Uno siempre debe dedicarse a la Torá, incluso en Lo Lishmá, ya que desde Lo Lishmá se llega a Lishmá. Por lo tanto, cuando se enseña a los niños, mujeres y a personas sin educación, se les enseña a trabajar desde el temor y para recibir recompensa, hasta que obtengan suficiente conocimiento y adquieran mucha sabiduría, entonces se les revela este secreto poco a poco y se los acostumbra a este asunto con tranquilidad, hasta que lo alcancen y lo conozcan desde el amor"».</p>
+                
+                <p>Por lo tanto, debemos ir por la línea derecha y por la línea izquierda, esto significa que incluso si ya sabe que existe el asunto de la verdad, llamada Lishmá, aun así, el camino en el que iba cuando tenía una sola línea, ha recibido un nuevo nombre y se llama ahora «Línea derecha». Sin embargo, ¿Qué nos agrega el hecho de que ahora llamamos a «Una línea», con el nombre «Línea derecha»? La explicación es que ahora hay una intención sobre la «Línea derecha», es decir, al cambiar el nombre de «Una línea» por «Línea derecha» este nombre tiene una intención especial, cosa que no existía cuando era llamada «Una línea».</p>
+                
+                <p>La razón es que tiene prohibido anular la línea izquierda e ir por la línea derecha, ya que no hay derecha sin izquierda. Por lo tanto, debemos decir que cuando él va por una sola línea, no sabe si existe otro camino. Pero ahora que tiene una línea izquierda en oposición, entonces «Una línea» pasa a llamarse ahora «Línea derecha». Esto significa que la perfección que está recibiendo ahora, no es porque vaya sin carencias, sino porque se siente completo y feliz con su trabajo, así como se sentía antes de haber comenzado a trabajar con la línea izquierda, pero por una razón diferente.</p>
+                
+                <p>Aquí, en la línea derecha, la perfección es porque él ve que es una persona simple y sabe que existe el camino de la verdad, es decir, que debe ocuparse en nombre del Creador, pero ve que está lejos de eso. Es decir, que su cuerpo no le permite anularse por completo ante el Creador, y que todas las tendencias en su vida sean con el fin de otorgar. Y sin embargo, ve que el Creador sí le da fuerza para entrar un poco en contacto con la santidad y otros no tienen esa fuerza.</p>
+                
+                <p>Por lo tanto, agradece y alaba al Creador por esto. Resulta que en ese estado él está completo. Sin embargo, ahora que comenzó a trabajar con la línea izquierda y comprendió que lo principal es el trabajo de otorgamiento, por eso le es difícil contentarse con poco. Si trabaja, conviene trabajar para alcanzar la perfección. Pero invertir fuerzas y ser recompensado solo con un pequeño contacto con en el trabajo sagrado, para esto el cuerpo no tiene combustible.</p>
+                
+                <p>A esto se lo llama, como está escrito: «En todo lugar donde haya una carencia de la Kedushá (Santidad), allí hay un aferramiento de las Klipot (cáscaras)». Es decir, las Klipot le hacen comprender que: «para una recompensa tan pequeña, es decir, para tener un pequeño contacto con la Kedushá, vas a tener que invertir fuerzas muy grandes». Se deduce de esto que las Klipot tienen la fuerza para alejarlo de la Kedushá con argumentos muy justos, es decir, no le dicen que no conviene esforzarse para ser recompensados con la Kedushá.</p>
+                
+                <p>«Kedushá, que es servir al Rey es ciertamente una gran cosa, pero tú mismo ves que no tienes las fuerzas para ello». Por eso entonces se despierta el peligro de caerse por completo del trabajo, porque el cuerpo ahora tiene un gran aferramiento en su trabajo ya que el hombre mismo es el que ve sus carencias en el trabajo. Lo que no ocurría con el trabajo con una sola línea, que él sabía que para él esa era la perfección, porque desde el principio le enseñaron que Lishmá le pertenece a grandes personas, que nacieron con grandes talentos naturales y buenas cualidades, y con grandes fuerzas que pueden sobreponerse a sus cuerpos, es decir, que se controlan a sí mismos y pueden llevar a cabo lo que quieran, y que nadie puede detenerlos.</p>
+                
+                <p>En cuanto a ti, lo que se te exige, es solo de acuerdo con tus capacidades. Es decir, debes hacer lo que eres capaz de hacer y con eso has cumplido con tu deber, ya que la Torá no les fue entregada a los ángeles ministeriales, sino a todos, a cada uno de acuerdo con su capacidad. Sin embargo, luego que comenzó a caminar por la línea izquierda, es decir que sintió que él también debe llegar a la Dvekut (adhesión) con el Creador y trabajar con el fin de otorgar, de ahí en más ya no es capaz de sentir la perfección en el trabajo con la línea derecha, porque la izquierda lo está molestando. Aquí comienza el trabajo con la fe por encima de la razón.</p>
+                
+                <p>Es decir, que debe creer que el trabajo de Kedushá es un trabajo muy muy importante. Por lo tanto, no importa si es recompensado con la verdadera perfección o con la perfección que se merece, es decir, que todavía no tiene la gran recompensa de hacer el trabajo sagrado en un cien por ciento, sino en un muy pequeño porcentaje; pero a esto lo considera una gran fortuna, cuya importancia es invaluable para él.</p>
+                
+                <p>Por lo tanto, en este trabajo cuando camina por esa línea, es que aprecia la Kedushá, por lo que aumenta constantemente su importancia. Esto es así porque debe creer en su grandeza por encima de la razón, aunque todavía no lo siente realmente. Él debe decirse a sí mismo: «El motivo por el que debo creer por encima de la razón en la importancia de la Torá y las Mitzvot, es por causa que todavía no soy digno de sentir su importancia y grandeza, ya que se sabe que mientras uno todavía esté inmerso en el amor propio, no es apto para sentir el bien y el placer que se reviste en ellos; pero, en verdad, cuando sea digno, lo veré realmente».</p>
+                
+                <p>Por lo tanto, se deduce que la razón por la que debe creer por encima de la razón no se debe a una falencia de la luz que está vestida en la Torá y las Mitzvot; más bien, la falencia está en el Kli (vasija) del inferior que aún no es digno de ello, y el Creador sabe cuándo seré merecedor y seguro me dejará sentir el sabor de la Torá y las Mitzvot. De esto resulta que debemos creer por encima de la razón, no porque no tengamos alternativa de sentir el bien que hay en ella, porque la luz está oculta y no podemos alcanzarla.</p>
+                
+                <p>En ese caso, ¿qué significaría «Porque estas son nuestras vidas», que se dice acerca de la Torá y los Mitzvot? Más bien, él debe creer por encima de la razón mientras no haya corregido su vasija de recepción. Pero cuando complete su corrección, el bien y el placer se extenderán en cada cosa sagrada con la que se involucre. Por lo tanto, if va por la línea derecha y cree en su importancia por encima de la razón, en la medida en que aprecia la importancia de la Torá y las Mitzvot puede apreciar incluso las cosas más pequeñas, es decir, incluso un toque, lo que significa que incluso en Lo Lishmá de Lo Lishmá puede también estar contento, porque con este acto está cumpliendo con el precepto del Creador.</p>
+                
+                <p>Sin embargo, después debe pasar a la línea izquierda, es decir, tiene que examinar el acto en sí, si el acto que está haciendo es seguir un consejo de cómo llegar a la Dvekut (adhesión) con el Creador, como dijeron nuestros sabios: «Creé la tendencia al mal, creé la Torá como condimento». Si él realmente tiene ese propósito, esto se considera que se pone a sí mismo en peligro. Cuando se encuentra en la línea izquierda, su trabajo es principalmente la plegaria, o sea clama al Creador para que lo ayude desde arriba, como dijeron nuestros sabios: «El que viene a purificarse es ayudado».</p>
+                
+                <p>Con esto podemos interpretar el significado de los ángeles que rodearon a Yaakov, como se menciona en el sagrado Zóhar, que los ángeles vinieron a protegerlo, lo que significa que la ayuda proviene de lo alto para ayudarlo a fin de que pueda continuar su camino. Sin embargo, la ayuda viene de arriba cuando la persona ya ha comenzado el trabajo y se encuentra a medio camino y clama por ayuda. Pero antes de que haya comenzado el trabajo no se le da ayuda.</p>
+                
+                <p>Por lo tanto, cuando Yaakov comenzó el trabajo y que ya se puso en peligro, le pide al Creador que lo ayude, entonces los ángeles fueron enviados para protegerlo y así poder ganar la guerra en la que había entrado. Pero cuando completó el trabajo que comenzó y recibió la ayuda de los ángeles, y quiso comenzar un nuevo trabajo, llamado «Latas pequeñas», como el comienzo del trabajo es oscuro, llamado «Noche», esto se considera «Peligro evidente», ya que el lugar oscuro llamado «Línea Izquierda», es peligroso, pero él debe comenzar solo. Después, cuando ve que no puede, comienza a pedirle ayuda al Creador, y entonces nuevamente recibirá ayuda desde arriba.</p>
             </div>
         </section>
-
     </div>
 
-    <!-- SCRIPTS DE FUNCIONALIDAD DINÁMICA -->
     <script>
-        // 1. Reloj Digital en Tiempo Real
-        function actualizarReloj() {
-            const ahora = new Date();
-            const horas = String(ahora.getHours()).padStart(2, '0');
-            const minutos = String(ahora.getMinutes()).padStart(2, '0');
-            const segundos = String(ahora.getSeconds()).padStart(2, '0');
-            document.getElementById('reloj').textContent = `${horas}:${minutos}:${segundos}`;
-        }
-        setInterval(actualizarReloj, 1000);
-        actualizarReloj(); // Ejecución inmediata al cargar
-
-        // 2. Control Dinámico del Tamaño de Letra
-        function cambiarTamano(tamano) {
-            const elementoTexto = document.getElementById('texto-estudio');
-            
-            // Remover clases previas
-            elementoTexto.classList.remove('text-pequeno', 'text-mediano', 'text-grande');
-            
-            // Añadir la clase seleccionada
-            elementoTexto.classList.add('text-' + tamano);
-            
-            // Actualizar estado de los botones
-            document.getElementById('btn-pequeno').classList.remove('activo');
-            document.getElementById('btn-mediano').classList.remove('activo');
-            document.getElementById('btn-grande').classList.remove('activo');
-            
-            document.getElementById('btn-' + tamano).classList.add('activo');
-        }
-
-        // 3. Asistente de Voz IA mediante Web Speech API
-        let lecturaUtterance = null;
+        let utterance = null;
         let estaPausado = false;
 
-        function inicializarVoz() {
-            if ('speechSynthesis' in window) {
-                // Cancelar cualquier lectura residual al recargar
-                window.speechSynthesis.cancel();
-            } else {
-                alert("Tu navegador no soporta la API de síntesis de voz. Intenta con un navegador moderno.");
-            }
-        }
-        window.addEventListener('load', inicializarVoz);
+        // Asegurar que las voces carguen correctamente (algunos navegadores requieren esto)
+        window.speechSynthesis.onvoiceschanged = function() {
+            window.speechSynthesis.getVoices();
+        };
 
         function reproducirTexto() {
-            if (!'speechSynthesis' in window) return;
-
-            // Si estaba en pausa, simplemente reanuda
-            if (estaPausado) {
-                window.speechSynthesis.resume();
-                estaPausado = false;
-                actualizarBotonesVoz(true);
+            if (!('speechSynthesis' in window)) {
+                alert("Tu navegador no soporta la lectura en voz alta.");
                 return;
             }
 
-            // Si ya está hablando un texto nuevo, lo cancelamos para reiniciar limpio
-            window.speechSynthesis.cancel();
-
-            // Capturar el texto del contenedor
-            const textoParaLeer = document.getElementById('texto-estudio').innerText;
-            lecturaUtterance = new SpeechSynthesisUtterance(textoParaLeer);
-            
-            // Configurar idioma español
-            lecturaUtterance.lang = 'es-ES';
-            
-            // Configurar velocidad desde el slider
-            const velocidad = parseFloat(document.getElementById('velocidad-voz').value);
-            lecturaUtterance.rate = velocidad;
-
-            // Intentar buscar una voz en español de mejor calidad nativa
-            const voces = window.speechSynthesis.getVoices();
-            const vozEspañol = voces.find(voz => voz.lang.startsWith('es'));
-            if (vozEspañol) {
-                lecturaUtterance.voice = vozEspañol;
+            // Si está pausado, solo reanudamos
+            if (estaPausado) {
+                window.speechSynthesis.resume();
+                estaPausado = false;
+                actualizarBotonPlay(true);
+                return;
             }
 
-            // Eventos de finalización
-            lecturaUtterance.onend = function() {
+            // Cancelar cualquier lectura previa
+            window.speechSynthesis.cancel();
+
+            // Extraer el texto del contenedor
+            const texto = document.getElementById('texto-estudio').innerText;
+            utterance = new SpeechSynthesisUtterance(texto);
+            
+            // Forzar idioma Español
+            utterance.lang = 'es-ES';
+
+            // Buscar específicamente una voz en español
+            const voces = window.speechSynthesis.getVoices();
+            // Priorizamos voces que contengan 'es-ES' (España) o 'es-MX'/'es-LA' (Latino)
+            const vozEspañol = voces.find(voz => voz.lang.startsWith('es-ES') || voz.lang.startsWith('es-MX') || voz.lang.startsWith('es'));
+            
+            if (vozEspañol) {
+                utterance.voice = vozEspañol;
+            }
+
+            // Configurar velocidad inicial
+            utterance.rate = parseFloat(document.getElementById('velocidad-voz').value);
+
+            // Eventos para actualizar la interfaz cuando termine
+            utterance.onend = function() {
                 estaPausado = false;
-                actualizarBotonesVoz(false);
+                actualizarBotonPlay(false);
             };
 
-            lecturaUtterance.onerror = function() {
-                estaPausado = false;
-                actualizarBotonesVoz(false);
-            };
-
-            // Ejecutar lectura
-            window.speechSynthesis.speak(lecturaUtterance);
-            actualizarBotonesVoz(true);
+            // Iniciar lectura
+            window.speechSynthesis.speak(utterance);
+            actualizarBotonPlay(true);
         }
 
         function pausarTexto() {
-            if ('speechSynthesis' in window && window.speechSynthesis.speaking && !estaPausado) {
+            if (window.speechSynthesis.speaking && !estaPausado) {
                 window.speechSynthesis.pause();
                 estaPausado = true;
                 document.getElementById('btn-play').textContent = "▶ Reanudar";
+                document.getElementById('btn-play').classList.remove('btn-activo');
+                document.getElementById('btn-pause').classList.add('btn-activo');
             }
         }
 
         function detenerTexto() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                estaPausado = false;
-                actualizarBotonesVoz(false);
-            }
+            window.speechSynthesis.cancel();
+            estaPausado = false;
+            actualizarBotonPlay(false);
+            document.getElementById('btn-pause').classList.remove('btn-activo');
         }
 
-        function actualizarVelocidad(valor) {
-            document.getElementById('valor-velocidad').textContent = parseFloat(valor).toFixed(1) + 'x';
+        function actualizarVelocidad() {
+            const nuevaVelocidad = parseFloat(document.getElementById('velocidad-voz').value);
+            document.getElementById('valor-velocidad').textContent = nuevaVelocidad.toFixed(1) + 'x';
             
-            // Si está hablando actualmente, reiniciamos dinámicamente con la nueva velocidad
-            if ('speechSynthesis' in window && window.speechSynthesis.speaking && !estaPausado) {
+            // Si está leyendo y no está en pausa, reiniciamos la voz con la nueva velocidad
+            if (window.speechSynthesis.speaking && !estaPausado) {
                 reproducirTexto();
             }
         }
 
-        function actualizarBotonesVoz(reproduciendo) {
+        function actualizarBotonPlay(reproduciendo) {
+            const btnPlay = document.getElementById('btn-play');
+            const btnPause = document.getElementById('btn-pause');
+            
             if (reproduciendo) {
-                document.getElementById('btn-play').textContent = "▶ Leyendo...";
-                document.getElementById('btn-play').classList.add('activo');
+                btnPlay.textContent = "▶ Leyendo...";
+                btnPlay.classList.add('btn-activo');
+                btnPause.classList.remove('btn-activo');
             } else {
-                document.getElementById('btn-play').textContent = "▶ Leer";
-                document.getElementById('btn-play').classList.remove('activo');
+                btnPlay.textContent = "▶ Leer";
+                btnPlay.classList.remove('btn-activo');
             }
         }
     </script>
