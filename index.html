@@ -3,179 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archivo Cabalístico</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Espacio de Estudio Centralizado</title>
     <style>
-        /* Estilos minimalistas e industriales */
-        body { 
-            font-family: 'IBM Plex Mono', monospace; 
-            background-color: #f4f4f4; 
-            color: #2b2b2b; 
-            display: flex; 
-            justify-content: center; 
-            padding: 60px 20px; 
-            line-height: 1.7; 
+        /* Diseño de Inspiración Bauhaus: Minimalista, funcional y geométrico */
+        :root {
+            --bg-principal: #fbfbfb;
+            --bg-tarjeta: #ffffff;
+            --texto-primario: #1a1a1a;
+            --texto-secundario: #555555;
+            --acento: #345c84;
+            --borde: #e0e0e0;
+            --fuente-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --fuente-serif: 'Georgia', serif;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
         }
-        .container { 
-            max-width: 800px; 
-            width: 100%; 
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-primario);
+            font-family: var(--fuente-sans);
+            line-height: 1.6;
+            padding: 40px 20px;
         }
-        
-        /* Sección de la frase destacada (Rotador) */
-        .destacado {
-            margin-bottom: 80px;
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
-        #frase-dia { 
-            font-size: 1.5rem; 
-            font-weight: 400; 
-            padding-left: 25px; 
-            border-left: 3px solid #2b2b2b; 
-            margin-bottom: 15px;
-            min-height: 80px; /* Evita que el botón brinque mucho si la frase es corta */
+
+        /* Cabecera y Reloj */
+        header {
+            border-bottom: 3px solid var(--texto-primario);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 20px;
         }
-        #autor-dia {
-            font-size: 0.9rem;
-            color: #666;
-            padding-left: 28px;
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
+            letter-spacing: -1px;
         }
 
-        /* Botón estilo industrial */
-        .btn-rotar {
-            margin-left: 28px;
-            padding: 8px 16px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85rem;
-            color: #2b2b2b;
-            background-color: transparent;
-            border: 1px solid #2b2b2b;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-        .btn-rotar:hover {
-            background-color: #2b2b2b;
-            color: #f4f4f4;
+        .reloj-contenedor {
+            font-size: 1.5rem;
+            font-weight: 300;
+            font-variant-numeric: tabular-nums;
+            background: var(--texto-primario);
+            color: var(--bg-principal);
+            padding: 4px 12px;
+            border-radius: 2px;
         }
 
-        /* Separador */
-        hr { 
-            border: 0; 
-            border-top: 1px dashed #ccc; 
-            margin: 60px 0; 
+        /* Secciones del Dashboard */
+        section {
+            background: var(--bg-tarjeta);
+            border: 1px solid var(--borde);
+            padding: 30px;
+            margin-bottom: 35px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
         }
 
-        /* Sección del archivo (Todas las frases) */
-        h2 { 
-            font-size: 1rem; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            margin-bottom: 40px; 
+        h2 {
+            font-size: 1.25rem;
             font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--texto-primario);
+            border-left: 4px solid var(--acento);
+            padding-left: 10px;
         }
-        .archivo p { 
-            font-size: 0.95rem;
-            margin-bottom: 30px; 
-            padding-bottom: 30px;
-            border-bottom: 1px solid #e5e5e5;
+
+        /* Contenedores de Media */
+        .media-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+            background: #000;
         }
-        .archivo p:last-child {
-            border-bottom: none;
+
+        .video-container {
+            aspect-ratio: 16/9;
         }
-        .cita-texto {
-            display: block;
-            margin-bottom: 10px;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
-        .cita-autor {
-            display: block;
-            font-size: 0.8rem;
-            color: #888;
+
+        /* Controles de la Sección de Lectura */
+        .controles-lectura {
+            background: #f0f2f5;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .grupo-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--texto-secundario);
+        }
+
+        button {
+            background: var(--bg-tarjeta);
+            border: 1px solid var(--borde);
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background: var(--texto-primario);
+            color: var(--bg-principal);
+            border-color: var(--texto-primario);
+        }
+
+        button.activo {
+            background: var(--acento);
+            color: white;
+            border-color: var(--acento);
+        }
+
+        .btn-voz {
+            font-weight: 500;
+        }
+
+        input[type="range"] {
+            accent-color: var(--acento);
+            cursor: pointer;
+        }
+
+        .speed-display {
+            font-size: 0.9rem;
+            min-width: 35px;
+            font-weight: bold;
+        }
+
+        /* Área de Texto Dinámica */
+        .contenido-lectura {
+            font-family: var(--fuente-serif);
+            color: #2c2c2c;
+            text-align: justify;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 15px;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        /* Tamaños de Fuente Dinámicos */
+        .text-pequeno { font-size: 1rem; }
+        .text-mediano { font-size: 1.2rem; }
+        .text-grande { font-size: 1.4rem; }
+
+        .contenido-lectura p {
+            margin-bottom: 1.5em;
+        }
+
+        .contenido-lectura h3 {
+            font-family: var(--fuente-sans);
+            font-size: 1.25rem;
+            margin: 1.5em 0 0.5em 0;
+            color: var(--texto-primario);
+        }
+
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
         
-        <div class="destacado">
-            <div id="frase-dia">Cargando sabiduría...</div>
-            <div id="autor-dia"></div>
-            <button id="btn-siguiente" class="btn-rotar">Siguiente extracto →</button>
-        </div>
-        
-        <hr>
+        <header>
+            <h1>Panel de Aprendizaje Autónomo</h1>
+            <div class="reloj-contenedor" id="reloj">00:00:00</div>
+        </header>
 
-        <h2>Archivo Completo</h2>
-        <div id="lista-frases" class="archivo"></div>
-        
+        <!-- SECCIÓN DE VIDEOS -->
+        <section>
+            <h2>Lecciones del Día</h2>
+            
+            <div class="media-wrapper video-container">
+                <iframe src="https://kabbalahmedia.info/lessons/cu/7BW1CHdy?mediaType=video&shareLang=es&c=tQcd5PhF&embed=1&autoPlay=0" allowfullscreen></iframe>
+            </div>
+
+            <div class="media-wrapper video-container">
+                <iframe src="https://kabbalahmedia.info/lessons/cu/eunHQnB6?mediaType=video&shareLang=es&c=tQcd5PhF&embed=1&autoPlay=0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE AUDIO / MÚSICA -->
+        <section>
+            <h2>Música de Enfoque</h2>
+            <div class="media-wrapper" style="height: 166px;">
+                <iframe scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1971690999&color=%23345c84&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE LECTURA DINÁMICA -->
+        <section>
+            <h2>Documento de Análisis e Integración</h2>
+            
+            <!-- Barra de Herramientas Interactiva -->
+            <div class="controles-lectura">
+                <div class="grupo-control">
+                    <label>Texto:</label>
+                    <button onclick="cambiarTamano('pequeno')" id="btn-pequeno">A</button>
+                    <button onclick="cambiarTamano('mediano')" id="btn-mediano" class="activo">A+</button>
+                    <button onclick="cambiarTamano('grande')" id="btn-grande">A++</button>
+                </div>
+
+                <div class="grupo-control">
+                    <label>Asistente de Voz:</label>
+                    <button onclick="reproducirTexto()" class="btn-voz" id="btn-play">▶ Leer</button>
+                    <button onclick="pausarTexto()" class="btn-voz" id="btn-pause">⏸ Pausa</button>
+                    <button onclick="detenerTexto()" class="btn-voz">⏹ Parar</button>
+                </div>
+
+                <div class="grupo-control">
+                    <label>Velocidad:</label>
+                    <input type="range" id="velocidad-voz" min="0.5" max="2" step="0.1" value="1" oninput="actualizarVelocidad(this.value)">
+                    <span class="speed-display" id="valor-velocidad">1.0x</span>
+                </div>
+            </div>
+
+            <!-- Área de Texto Fija para Lectura Dinámica -->
+            <div id="texto-estudio" class="contenido-lectura text-mediano">
+                <h3>Metodologías de Retención Cognitiva y Procesamiento Activo</h3>
+                <p>El aprendizaje profundo y de largo plazo no se logra mediante la simple recepción pasiva de información. La neurociencia cognitiva demuestra que para consolidar conceptos complejos —ya sea en el campo de las matemáticas vectoriales, la programación avanzada o el análisis filológico— el cerebro requiere un proceso de codificación e interconexión activa.</p>
+                
+                <p>Cuando nos enfrentamos a un bloque de conocimiento nuevo, la primera fase consiste en la desestructuración de la información. No basta con leer un texto de corrido o mirar un video de forma lineal; es fundamental fragmentar las ideas complejas en unidades mínimas de información independientes. Este enfoque permite reducir la carga cognitiva de la memoria de trabajo, facilitando que el cerebro asimile la lógica subyacente sin saturarse.</p>
+
+                <h3>La Técnica de Síntesis Explicativa</h3>
+                <p>Una vez aisladas las unidades conceptuales, el siguiente paso crítico es la traducción semántica personalizada. Esto implica reformular el concepto utilizando un lenguaje propio, simple y directo, desprovisto de tecnicismos innecesarios. Si no se puede explicar un concepto de manera sencilla, significa que aún no se ha comprendido su estructura raíz.</p>
+                
+                <p>Este ejercicio de traducción obliga al estudiante a activar redes neuronales preexistentes para anclar el nuevo dato, transformando la memoria de corto plazo en conocimiento firmemente integrado. La repetición espaciada y el autoexamen basado en estas notas atómicas completan el ciclo de retención, evitando la curva del olvido y optimizando los tiempos de estudio diarios.</p>
+            </div>
+        </section>
+
     </div>
 
+    <!-- SCRIPTS DE FUNCIONALIDAD DINÁMICA -->
     <script>
-        // Corpus completo de frases
-        const frases = [
-            { texto: "En el plano espiritual, 'honor' no se refiere al honor propio, sino todo lo contrario: a quién le doy yo honor. Necesito honrarlo, necesito apreciarlo, necesito reconocerlo, y que sea grande ante mis ojos — porque solo entonces mis vasijas de recepción cederán y yo podré otorgarle.", autor: "Rav Laitman" },
-            { texto: "Poder corregir las vasijas de recepción, adquirir la intención — la luz reflejada — solo es posible si el Creador no es sentido dentro de nosotros, dentro de nuestros sentidos. Por eso, el tiempo de preparación de la vasija para recibir la luz debe transcurrir en oscuridad, en ocultamiento doble o en ocultamiento simple. El trabajo consiste entonces en esforzarse por trabajar en la grandeza e importancia del Creador sin aún conocerlo.", autor: "Rav Laitman" },
-            { texto: "Si una persona, desde la negatividad — desde no sentir la divinidad — desarrolla un deseo hacia lo divino y llega al estado de 'hasta que no me deja dormir', entonces merece que el Creador comience a revelársele.", autor: "Rav Laitman" },
-            { texto: "El Creador debe estar oculto, el placer debe estar oculto, y el sufrimiento — es decir, el vacío — debe estar específicamente revelado. En tal estado, la persona debe moverse y desarrollarse en la dirección correcta, para construir la vasija.", autor: "Rav Laitman" },
-            { texto: "El Creador está siempre dentro de mí, en mi alma. Pero soy yo mismo, desde mi interior, quien corrige mi percepción de Él, mi sensibilidad hacia Él, mi capacidad de sentirlo.", autor: "Rav Laitman" },
-            { texto: "Cuando desarrollo el sexto sentido, y lo desarrollo hasta el punto en que es digno de su función, este deja de pertenecerme, deja de depender de mí. Se vuelve verdaderamente objetivo, desvinculado de mi voluntad de recibir. Es como si mirara con los ojos de otro — sin prejuicios.", autor: "Rav Laitman" },
-            { texto: "Quien comienza a estudiar Cabalá debe cambiar su fuerza motriz: de la fuerza que empuja desde atrás mediante el sufrimiento, a la fuerza que atrae desde adelante mediante los placeres — incluso placeres animales. Es decir, pienso que me irá bien, en lugar de que lo malo me obliga a huir.", autor: "Rav Laitman" },
-            { texto: "La sabiduría de la Cabalá dice que no debemos borrar nada. Disfruta esta vida como quieras, sigue disfrutando — y al mismo tiempo sigue estudiando Cabalá e intenta llegar al estado en que la espiritualidad sea más grande que este mundo, que sea eterna, que te abra horizontes.", autor: "Rav Laitman" },
-            { texto: "Necesitamos reemplazar el sufrimiento animal por el sufrimiento del amor. Que yo sienta carencia — desde el amor, desde querer la espiritualidad, desde que esto es grande y hermoso — y no porque los problemas me estén picando por detrás.", autor: "Rav Laitman" },
-            { texto: "A una persona sola le resulta difícil hacer esto; solo es posible a través de la sociedad. Que la sociedad le provea la certeza en esto, la sensación de esto, el entusiasmo por esto. Si veo que mucha gente se entusiasma con esto, entonces yo también puedo — entonces ya no me concentro en cómo salir de mis propios problemas.", autor: "Rav Laitman" },
-            { texto: "En la espiritualidad, ambos son inseparables — son el frente y el dorso de la misma vasija. Por lo tanto, no existe estado alguno en la espiritualidad en el que la persona realmente sufra. La sensación de oscuridad es una sensación constructiva — es la sensación de creación, de construcción de la vasija. Es alegría, no dolor ni desesperación. Más allá de la barrera no existe negación alguna.", autor: "Rav Laitman" },
-            { texto: "Cuanto más me conmueve la sociedad — que reconoce la divinidad, que habla de Él, que esto es grande — como en cualquier publicidad, como en cualquier moda, como en todas las cosas que nos inundan la mente — en la medida en que recibo ese entusiasmo de ellos, así puedo hacer crecer este sentido, desarrollarlo, hasta comenzar a sentir la espiritualidad en él.", autor: "Rav Laitman" },
-            { texto: "Para conmoverme ante la grandeza espiritual que expresa la sociedad, necesito sentirlos, o apreciarlos como muy grandes — a todos estos amigos — a fin de conmoverme más intensamente con ellos, y verme a mí mismo por debajo de ellos. Y cuanto mayor sea su número, más me conmoveré.", autor: "Rav Laitman" },
-            { texto: "Debo organizarme un marco artificial tal que solo ellos me influyan, y nada más. Y entonces, cuanto más me esfuerce en dejar que esto me inunde la mente — en volverme verdaderamente sujeto a sus perspectivas — en esa misma medida lograré desarrollar el punto en el corazón hasta que se convierta en una vasija.", autor: "Rav Laitman" },
-            { texto: "Lo principal es conmoverse — es decir, colocarme frente a la sociedad en un estado de entusiasmo.", autor: "Rav Laitman" },
-            { texto: "Por supuesto, depende de cómo yo ordene mi sentido de importancia y mi mirada. Eso ya es mi trabajo.", autor: "Rav Laitman" },
-            { texto: "El problema es que el grado de mi entusiasmo por la sociedad también depende de cómo percibo que otros se entusiasman con ella — tanto los que están dentro de la sociedad como los que están a su alrededor.", autor: "Rav Laitman" },
-            { texto: "También depende de cómo la sociedad se presenta ante mí. ¿Me están estimulando? ¿Me dan razones para entusiasmarme? Deben mostrarme que hay algo grande en ellos. Que son grandes. Que son de esos que te hacen pensar: ¿wow, qué está pasando ahí?", autor: "Rav Laitman" },
-            { texto: "Si hay alguien a tu lado — un amigo que ya está en la espiritualidad o que aún no lo está — el entusiasmo y la influencia que ejerce sobre ti puede ser mucho más poderosa, a través de lo físico.", autor: "Rav Laitman" },
-            { texto: "El amigo que está a tu lado es para ti un ejemplo vivo; actúa sobre ti más que cualquier otra cosa y puede empujarte con mucha más fuerza. Por eso debemos relacionarnos unos con otros como si fuésemos simplemente la fuerza sin la cual es imposible avanzar — exactamente como en un comando militar.", autor: "Rav Laitman" },
-            { texto: "No hay persona que no contenga chispas de otras almas. Y si él no llega a la corrección, al final de la corrección, entonces ninguno de ellos llegará — así de simple. Por eso la difusión de la sabiduría de la Cabalá, su diseminación, es algo de tremenda importancia.", autor: "Rav Laitman" }
-        ];
+        // 1. Reloj Digital en Tiempo Real
+        function actualizarReloj() {
+            const ahora = new Date();
+            const horas = String(ahora.getHours()).padStart(2, '0');
+            const minutos = String(ahora.getMinutes()).padStart(2, '0');
+            const segundos = String(ahora.getSeconds()).padStart(2, '0');
+            document.getElementById('reloj').textContent = `${horas}:${minutos}:${segundos}`;
+        }
+        setInterval(actualizarReloj, 1000);
+        actualizarReloj(); // Ejecución inmediata al cargar
 
-        // Inicializar el índice basado en la hora actual
-        let indiceActual = new Date().getHours() % frases.length;
-
-        // Función para actualizar el texto en la pantalla
-        function mostrarFraseDestacada() {
-            const frase = frases[indiceActual];
-            document.getElementById('frase-dia').innerText = `"${frase.texto}"`;
-            document.getElementById('autor-dia').innerText = `— ${frase.autor}`;
+        // 2. Control Dinámico del Tamaño de Letra
+        function cambiarTamano(tamano) {
+            const elementoTexto = document.getElementById('texto-estudio');
+            
+            // Remover clases previas
+            elementoTexto.classList.remove('text-pequeno', 'text-mediano', 'text-grande');
+            
+            // Añadir la clase seleccionada
+            elementoTexto.classList.add('text-' + tamano);
+            
+            // Actualizar estado de los botones
+            document.getElementById('btn-pequeno').classList.remove('activo');
+            document.getElementById('btn-mediano').classList.remove('activo');
+            document.getElementById('btn-grande').classList.remove('activo');
+            
+            document.getElementById('btn-' + tamano).classList.add('activo');
         }
 
-        // Lógica del botón: Avanzar a la siguiente frase
-        document.getElementById('btn-siguiente').addEventListener('click', () => {
-            // Suma 1 al índice. Si llega al final, vuelve a empezar en 0
-            indiceActual = (indiceActual + 1) % frases.length;
-            mostrarFraseDestacada();
-        });
+        // 3. Asistente de Voz IA mediante Web Speech API
+        let lecturaUtterance = null;
+        let estaPausado = false;
 
-        // Cargar la primera frase al abrir la página
-        mostrarFraseDestacada();
+        function inicializarVoz() {
+            if ('speechSynthesis' in window) {
+                // Cancelar cualquier lectura residual al recargar
+                window.speechSynthesis.cancel();
+            } else {
+                alert("Tu navegador no soporta la API de síntesis de voz. Intenta con un navegador moderno.");
+            }
+        }
+        window.addEventListener('load', inicializarVoz);
 
-        // Renderizar el archivo completo en la parte inferior
-        const listaContenedor = document.getElementById('lista-frases');
-        frases.forEach(frase => {
-            const parrafo = document.createElement('p');
+        function reproducirTexto() {
+            if (!'speechSynthesis' in window) return;
+
+            // Si estaba en pausa, simplemente reanuda
+            if (estaPausado) {
+                window.speechSynthesis.resume();
+                estaPausado = false;
+                actualizarBotonesVoz(true);
+                return;
+            }
+
+            // Si ya está hablando un texto nuevo, lo cancelamos para reiniciar limpio
+            window.speechSynthesis.cancel();
+
+            // Capturar el texto del contenedor
+            const textoParaLeer = document.getElementById('texto-estudio').innerText;
+            lecturaUtterance = new SpeechSynthesisUtterance(textoParaLeer);
             
-            const textoCita = document.createElement('span');
-            textoCita.className = 'cita-texto';
-            textoCita.innerText = `"${frase.texto}"`;
+            // Configurar idioma español
+            lecturaUtterance.lang = 'es-ES';
             
-            const autorCita = document.createElement('span');
-            autorCita.className = 'cita-autor';
-            autorCita.innerText = `— ${frase.autor}`;
+            // Configurar velocidad desde el slider
+            const velocidad = parseFloat(document.getElementById('velocidad-voz').value);
+            lecturaUtterance.rate = velocidad;
+
+            // Intentar buscar una voz en español de mejor calidad nativa
+            const voces = window.speechSynthesis.getVoices();
+            const vozEspañol = voces.find(voz => voz.lang.startsWith('es'));
+            if (vozEspañol) {
+                lecturaUtterance.voice = vozEspañol;
+            }
+
+            // Eventos de finalización
+            lecturaUtterance.onend = function() {
+                estaPausado = false;
+                actualizarBotonesVoz(false);
+            };
+
+            lecturaUtterance.onerror = function() {
+                estaPausado = false;
+                actualizarBotonesVoz(false);
+            };
+
+            // Ejecutar lectura
+            window.speechSynthesis.speak(lecturaUtterance);
+            actualizarBotonesVoz(true);
+        }
+
+        function pausarTexto() {
+            if ('speechSynthesis' in window && window.speechSynthesis.speaking && !estaPausado) {
+                window.speechSynthesis.pause();
+                estaPausado = true;
+                document.getElementById('btn-play').textContent = "▶ Reanudar";
+            }
+        }
+
+        function detenerTexto() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                estaPausado = false;
+                actualizarBotonesVoz(false);
+            }
+        }
+
+        function actualizarVelocidad(valor) {
+            document.getElementById('valor-velocidad').textContent = parseFloat(valor).toFixed(1) + 'x';
             
-            parrafo.appendChild(textoCita);
-            parrafo.appendChild(autorCita);
-            listaContenedor.appendChild(parrafo);
-        });
+            // Si está hablando actualmente, reiniciamos dinámicamente con la nueva velocidad
+            if ('speechSynthesis' in window && window.speechSynthesis.speaking && !estaPausado) {
+                reproducirTexto();
+            }
+        }
+
+        function actualizarBotonesVoz(reproduciendo) {
+            if (reproduciendo) {
+                document.getElementById('btn-play').textContent = "▶ Leyendo...";
+                document.getElementById('btn-play').classList.add('activo');
+            } else {
+                document.getElementById('btn-play').textContent = "▶ Leer";
+                document.getElementById('btn-play').classList.remove('activo');
+            }
+        }
     </script>
 </body>
 </html>
