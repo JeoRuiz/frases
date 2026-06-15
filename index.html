@@ -179,6 +179,7 @@
             <h1>Material de Estudio del Día</h1>
         </header>
 
+        <!-- SECCIÓN DE VIDEOS -->
         <section>
             <h2>Lecciones Audiovisuales</h2>
             
@@ -191,9 +192,11 @@
             </div>
         </section>
 
+        <!-- SECCIÓN DE LECTURA DE DOCUMENTO -->
         <section>
             <h2>Documento de Estudio</h2>
             
+            <!-- Controles del Asistente de Voz -->
             <div class="controles-lectura">
                 <div class="control-grupo">
                     <label>Asistente de Voz (Español):</label>
@@ -209,6 +212,7 @@
                 </div>
             </div>
 
+            <!-- Contenido del PDF Extraído -->
             <div id="texto-estudio" class="area-lectura">
                 <h3>Acerca de la ayuda que viene desde lo Alto</h3>
                 <p><strong>Artículo 8, 1986</strong></p>
@@ -288,7 +292,7 @@
                 
                 <p>Por lo tanto, se deduce que la razón por la que debe creer por encima de la razón no se debe a una falencia de la luz que está vestida en la Torá y las Mitzvot; más bien, la falencia está en el Kli (vasija) del inferior que aún no es digno de ello, y el Creador sabe cuándo seré merecedor y seguro me dejará sentir el sabor de la Torá y las Mitzvot. De esto resulta que debemos creer por encima de la razón, no porque no tengamos alternativa de sentir el bien que hay en ella, porque la luz está oculta y no podemos alcanzarla.</p>
                 
-                <p>En ese caso, ¿qué significaría «Porque estas son nuestras vidas», que se dice acerca de la Torá y los Mitzvot? Más bien, él debe creer por encima de la razón mientras no haya corregido su vasija de recepción. Pero cuando complete su corrección, el bien y el placer se extenderán en cada cosa sagrada con la que se involucre. Por lo tanto, if va por la línea derecha y cree en su importancia por encima de la razón, en la medida en que aprecia la importancia de la Torá y las Mitzvot puede apreciar incluso las cosas más pequeñas, es decir, incluso un toque, lo que significa que incluso en Lo Lishmá de Lo Lishmá puede también estar contento, porque con este acto está cumpliendo con el precepto del Creador.</p>
+                <p>En ese caso, ¿qué significaría «Porque estas son nuestras vidas», que se dice acerca de la Torá y los Mitzvot? Más bien, él debe creer por encima de la razón mientras no haya corregido su vasija de recepción. Pero cuando complete su corrección, el bien y el placer se extenderán en cada cosa sagrada con la que se involucre. Por lo tanto, si va por la línea derecha y cree en su importancia por encima de la razón, en la medida en que aprecia la importancia de la Torá y las Mitzvot puede apreciar incluso las cosas más pequeñas, es decir, incluso un toque, lo que significa que incluso en Lo Lishmá de Lo Lishmá puede también estar contento, porque con este acto está cumpliendo con el precepto del Creador.</p>
                 
                 <p>Sin embargo, después debe pasar a la línea izquierda, es decir, tiene que examinar el acto en sí, si el acto que está haciendo es seguir un consejo de cómo llegar a la Dvekut (adhesión) con el Creador, como dijeron nuestros sabios: «Creé la tendencia al mal, creé la Torá como condimento». Si él realmente tiene ese propósito, esto se considera que se pone a sí mismo en peligro. Cuando se encuentra en la línea izquierda, su trabajo es principalmente la plegaria, o sea clama al Creador para que lo ayude desde arriba, como dijeron nuestros sabios: «El que viene a purificarse es ayudado».</p>
                 
@@ -299,14 +303,22 @@
         </section>
     </div>
 
+    <!-- SCRIPT DE SÍNTESIS DE VOZ (MOTOR CORREGIDO PARA FORZAR ESPAÑOL) -->
     <script>
         let utterance = null;
         let estaPausado = false;
+        let vocesDisponibles = [];
 
-        // Asegurar que las voces carguen correctamente (algunos navegadores requieren esto)
-        window.speechSynthesis.onvoiceschanged = function() {
-            window.speechSynthesis.getVoices();
-        };
+        // 1. Asegurar que las voces se carguen en la memoria del navegador ANTES de reproducir
+        function cargarVoces() {
+            vocesDisponibles = window.speechSynthesis.getVoices();
+        }
+
+        // Algunos navegadores cargan las voces de inmediato, otros disparan un evento
+        cargarVoces();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = cargarVoces;
+        }
 
         function reproducirTexto() {
             if (!('speechSynthesis' in window)) {
@@ -329,23 +341,40 @@
             const texto = document.getElementById('texto-estudio').innerText;
             utterance = new SpeechSynthesisUtterance(texto);
             
-            // Forzar idioma Español
+            // 2. Forzar estrictamente el idioma base a Español
             utterance.lang = 'es-ES';
 
-            // Buscar específicamente una voz en español
-            const voces = window.speechSynthesis.getVoices();
-            // Priorizamos voces que contengan 'es-ES' (España) o 'es-MX'/'es-LA' (Latino)
-            const vozEspañol = voces.find(voz => voz.lang.startsWith('es-ES') || voz.lang.startsWith('es-MX') || voz.lang.startsWith('es'));
-            
-            if (vozEspañol) {
-                utterance.voice = vozEspañol;
+            // 3. Buscar y asignar la voz específica en Español de la lista cargada
+            if (vocesDisponibles.length === 0) {
+                cargarVoces(); // Intento extra de rescate si el array estaba vacío
             }
 
-            // Configurar velocidad inicial
+            // Filtramos todas las voces que sean de español (es-ES, es-MX, es-LA, etc.)
+            const vocesEspañol = vocesDisponibles.filter(voz => voz.lang.startsWith('es') || voz.lang.includes('es-'));
+
+            if (vocesEspañol.length > 0) {
+                // Si hay voces en español, intentamos priorizar México o España, si no, tomamos la primera disponible
+                let vozElegida = vocesEspañol.find(voz => voz.lang === 'es-MX' || voz.lang === 'es-ES');
+                if (!vozElegida) {
+                    vozElegida = vocesEspañol[0];
+                }
+                utterance.voice = vozElegida;
+            } else {
+                // ALERTA DE SEGURIDAD: Si llegamos aquí, el dispositivo del usuario no tiene el idioma español instalado
+                console.warn("No se encontró paquete de voz en Español en el sistema.");
+                alert("Atención: No se detectó ninguna voz en español instalada en tu navegador o sistema operativo. El sistema usará su voz por defecto (probablemente inglés). Para solucionarlo, instala el paquete de idioma 'Español' en la configuración de voz de tu dispositivo.");
+            }
+
+            // Configurar velocidad
             utterance.rate = parseFloat(document.getElementById('velocidad-voz').value);
 
-            // Eventos para actualizar la interfaz cuando termine
+            // Eventos para actualizar la interfaz cuando termine o haya un error
             utterance.onend = function() {
+                estaPausado = false;
+                actualizarBotonPlay(false);
+            };
+            
+            utterance.onerror = function() {
                 estaPausado = false;
                 actualizarBotonPlay(false);
             };
